@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_tutorial/constants.dart';
 import 'package:tiktok_tutorial/widgets/custom_icon.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,6 +9,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: backgroundColor,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.white,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home, size: 30),
