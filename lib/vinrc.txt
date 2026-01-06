@@ -1,0 +1,13 @@
+syntax on
+filetype plugin indent on
+call plug#begin('~/.vim/plugged')
+
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
+Plug 'joshdick/onedark.vim'
+
+call plug#end()
+
+set termguicolors
+colorscheme onedark
+set number
