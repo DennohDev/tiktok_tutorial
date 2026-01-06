@@ -8,14 +8,35 @@ import 'package:tiktok_tutorial/constants.dart';
 
 // local imports
 import 'package:tiktok_tutorial/models/user.dart' as model;
+import 'package:tiktok_tutorial/views/screens/auth/login_screen.dart';
+import 'package:tiktok_tutorial/views/screens/home_screen.dart';
 
 class AuthController extends GetxController {
   // make the auth controller publicly available
   static AuthController instance = Get.find();
   // the observable Rx lets us check whether the image has been selected or not
+
+  // firebase auth user
+  late Rx<User?> _user;
   late Rx<File?> _pickedImage;
 
   File? get profilePhoto => _pickedImage.value;
+  @override
+  void onReady() {
+    super.onReady();
+    _user = Rx<User?>(firebaseAuth.currentUser);
+    _user.bindStream(firebaseAuth.authStateChanges());
+    ever(_user, _setInitialScreen);
+  }
+
+  void _setInitialScreen(User? user) {
+    if (user == null) {
+      Get.offAll(() => LoginScreen());
+    } else {
+      Get.offAll(() => const HomeScreen());
+    }
+  }
+
   // Pick image from gallery
   void pickImage() async {
     final pickedImage = await ImagePicker().pickImage(
